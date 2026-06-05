@@ -6,15 +6,15 @@
     <h5>Faculty Mark Entry</h5>
     <form method="get" class="row g-2">
       <div class="col-md-3">
-        <label class="form-label">Branch</label>
-        <select class="form-select" name="branch">
+        <label class="form-label" for="faculty-branch">Branch</label>
+        <select id="faculty-branch" class="form-select" name="branch">
           {% for branch in branches %}<option value="{{ branch }}" {% if branch == selected_branch %}selected{% endif %}>{{ branch }}</option>{% endfor %}
         </select>
       </div>
-      <div class="col-md-2"><label class="form-label">Sem</label><input class="form-control" type="number" min="1" name="sem" value="{{ selected_sem }}"></div>
+      <div class="col-md-2"><label class="form-label" for="faculty-sem">Sem</label><input id="faculty-sem" class="form-control" type="number" min="1" name="sem" value="{{ selected_sem }}"></div>
       <div class="col-md-4">
-        <label class="form-label">Subject</label>
-        <select class="form-select" name="subject">
+        <label class="form-label" for="faculty-subject">Subject</label>
+        <select id="faculty-subject" class="form-select" name="subject">
           {% for subject in subjects %}
             <option value="{{ subject.subject_number }}" {% if subject.subject_number == selected_subject %}selected{% endif %}>{{ subject.subject_number }} - {{ subject.subject_name }}</option>
           {% endfor %}

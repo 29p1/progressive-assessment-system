@@ -17,6 +17,13 @@ from app.services.user_service import (
 dashboard_bp = Blueprint("dashboard", __name__, url_prefix="/dashboard")
 
 
+def _safe_int(value, default):
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
 @dashboard_bp.route("/")
 @login_required
 def home():
@@ -37,7 +44,7 @@ def home():
 def student():
     db = get_db(current_app)
     profile = get_profile(db, "student", session["user_id"])
-    sem = int(request.args.get("sem") or profile["sem"])
+    sem = _safe_int(request.args.get("sem"), profile["sem"])
     progress = get_student_progress(db, session["user_id"], sem)
     labels = [item["subject_name"] for item in progress["rows"]]
     values = [item["total"] for item in progress["rows"]]
@@ -62,7 +69,7 @@ def faculty():
     profile = get_profile(db, "faculty", session["user_id"])
 
     selected_branch = request.values.get("branch") or (profile.get("branches") or [""])[0]
-    selected_sem = int(request.values.get("sem") or 1)
+    selected_sem = _safe_int(request.values.get("sem"), 1)
     selected_subject = request.values.get("subject") or ((profile.get("subjects") or [{}])[0].get("subject_number", ""))
 
     if request.method == "POST" and request.form.get("student_user_id"):
@@ -112,7 +119,7 @@ def faculty():
 def hod():
     db = get_db(current_app)
     profile = get_profile(db, "hod", session["user_id"])
-    sem = int(request.args.get("sem") or 1)
+    sem = _safe_int(request.args.get("sem"), 1)
 
     students = list_students_by_branch_sem(db, profile["branch"], sem)
     chart = aggregate_branch_progress(db, profile["branch"], sem)
@@ -131,7 +138,7 @@ def hod():
 @login_required
 @role_required("principal")
 def principal():
-    sem = int(request.args.get("sem") or 1)
+    sem = _safe_int(request.args.get("sem"), 1)
     chart = aggregate_all_branch_progress(get_db(current_app), sem)
 
     return render_template(

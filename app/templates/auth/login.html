@@ -7,8 +7,8 @@
       <div class="card-body p-4">
         <h2 class="h5 mb-3">Login</h2>
         <form method="get" class="mb-3">
-          <label class="form-label">Role</label>
-          <select name="role" class="form-select" onchange="this.form.submit()">
+          <label class="form-label" for="login-role">Role</label>
+          <select id="login-role" name="role" class="form-select" onchange="this.form.submit()">
             {% for item in roles %}
               <option value="{{ item }}" {% if item == role %}selected{% endif %}>{{ item|upper }}</option>
             {% endfor %}
@@ -17,12 +17,12 @@
         <form method="post">
           <input type="hidden" name="role" value="{{ role }}">
           <div class="mb-3">
-            <label class="form-label">{% if role == 'student' %}Enrollment No{% else %}Email / Identifier{% endif %}</label>
-            <input class="form-control" name="identifier" required>
+            <label class="form-label" for="login-identifier">{% if role == 'student' %}Enrollment No{% else %}Email / Identifier{% endif %}</label>
+            <input id="login-identifier" class="form-control" name="identifier" required>
           </div>
           <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input class="form-control" name="password" type="password" required>
+            <label class="form-label" for="login-password">Password</label>
+            <input id="login-password" class="form-control" name="password" type="password" required>
           </div>
           <button class="btn btn-primary w-100">Login</button>
         </form>

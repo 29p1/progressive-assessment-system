@@ -6,6 +6,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.models.schemas import REQUIRED_FIELDS, ROLES
 
+MAX_COMPONENT_SCORE = 25
+MAX_TOTAL_PER_SUBJECT = 4 * MAX_COMPONENT_SCORE
+
 
 def _utcnow():
     return datetime.now(timezone.utc)
@@ -17,6 +20,10 @@ def _str_id(value):
 
 def _to_object_id(value):
     return ObjectId(value) if value and not isinstance(value, ObjectId) else value
+
+
+def _clamp_score(value):
+    return max(0, min(MAX_COMPONENT_SCORE, int(value)))
 
 
 def _clean_subjects(payload):
@@ -110,6 +117,17 @@ def create_user(db, role, payload):
     email = payload.get("email", "").strip().lower() or None
     enrollment_no = payload.get("enrollment_no", "").strip().upper() or None
 
+    sem_value = payload.get("sem")
+    try:
+        sem = int(sem_value) if sem_value not in (None, "") else None
+    except (ValueError, TypeError):
+        return None, "Semester must be numeric."
+
+    try:
+        number_of_subjects = int(payload.get("number_of_subjects", 0))
+    except (ValueError, TypeError):
+        return None, "Number of subjects must be numeric."
+
     if role == "student":
         login_id = enrollment_no
     else:
@@ -144,7 +162,7 @@ def create_user(db, role, payload):
                 **base_profile,
                 "enrollment_no": enrollment_no,
                 "branch": payload["branch"].strip().upper(),
-                "sem": int(payload["sem"]),
+                "sem": sem,
             }
         )
     elif role == "faculty":
@@ -153,7 +171,7 @@ def create_user(db, role, payload):
         db.faculty_profiles.insert_one(
             {
                 **base_profile,
-                "number_of_subjects": int(payload["number_of_subjects"]),
+                "number_of_subjects": number_of_subjects,
                 "branches": branches,
                 "subjects": subjects,
             }
@@ -304,7 +322,7 @@ def get_student_progress(db, student_user_id, sem):
             }
         )
         total += subject_total
-        max_total += 100
+        max_total += MAX_TOTAL_PER_SUBJECT
 
     percentage = round((total / max_total) * 100, 2) if max_total else 0.0
     return {"rows": rows, "total": total, "percentage": percentage}
@@ -321,10 +339,10 @@ def upsert_mark(db, faculty_user_id, student_user_id, branch, sem, subject_numbe
         "branch": branch,
         "sem": sem,
         "subject_number": subject_number,
-        "pa1": max(0, min(25, int(scores.get("pa1", 0)))),
-        "pa2": max(0, min(25, int(scores.get("pa2", 0)))),
-        "practical": max(0, min(25, int(scores.get("practical", 0)))),
-        "gtu": max(0, min(25, int(scores.get("gtu", 0)))),
+        "pa1": _clamp_score(scores.get("pa1", 0)),
+        "pa2": _clamp_score(scores.get("pa2", 0)),
+        "practical": _clamp_score(scores.get("practical", 0)),
+        "gtu": _clamp_score(scores.get("gtu", 0)),
         "updated_by": _to_object_id(faculty_user_id),
         "updated_at": _utcnow(),
     }

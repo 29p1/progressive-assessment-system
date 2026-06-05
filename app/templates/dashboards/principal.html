@@ -5,7 +5,10 @@
   <div class="card-body">
     <h5>All Branch Progress</h5>
     <form method="get" class="row g-2">
-      <div class="col-md-3"><input class="form-control" type="number" min="1" name="sem" value="{{ sem }}" placeholder="Semester"></div>
+      <div class="col-md-3">
+        <label class="form-label" for="principal-sem">Semester</label>
+        <input id="principal-sem" class="form-control" type="number" min="1" name="sem" value="{{ sem }}" placeholder="Semester">
+      </div>
       <div class="col-md-2 d-grid"><button class="btn btn-primary">Load</button></div>
     </form>
   </div>

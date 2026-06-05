@@ -52,6 +52,7 @@ requirements.txt
    - `SECRET_KEY`
    - `MONGO_URI` (default: `mongodb://localhost:27017`)
    - `MONGO_DB_NAME` (default: `progressive_assessment`)
+   - For production, always set a strong `SECRET_KEY`.
 4. Run the app:
    ```bash
    python run.py
