@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}HOD Dashboard{% endblock %}
+{% block content %}
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5>HOD Analytics</h5>
+        <p class="mb-2"><strong>Branch:</strong> {{ profile.branch }}</p>
+        <form method="get">
+          <label class="form-label">Semester</label>
+          <input class="form-control" type="number" min="1" name="sem" value="{{ sem }}">
+          <button class="btn btn-primary w-100 mt-2">View</button>
+        </form>
+        <hr>
+        <p class="mb-0">Students in class: {{ students|length }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8">
+    <div class="card shadow-sm mb-3"><div class="card-body"><h5>Branch Progress Graph</h5><canvas id="hodChart" height="120"></canvas></div></div>
+    <div class="card shadow-sm"><div class="card-body"><h5>Student List</h5>
+      <table class="table table-striped"><thead><tr><th>Enrollment</th><th>Name</th></tr></thead><tbody>
+        {% for student in students %}
+        <tr><td>{{ student.enrollment_no }}</td><td>{{ student.first_name }} {{ student.last_name }}</td></tr>
+        {% else %}
+        <tr><td colspan="2" class="text-center">No students found.</td></tr>
+        {% endfor %}
+      </tbody></table>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+  new Chart(document.getElementById('hodChart'), {
+    type: 'line',
+    data: {
+      labels: {{ chart_labels|safe }},
+      datasets: [{ label: 'Percentage', data: {{ chart_values|safe }}, borderColor: '#198754', fill: false }]
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-8">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h2 class="h5 mb-3">Register</h2>
+        <form method="get" class="mb-3">
+          <label class="form-label">Role</label>
+          <select name="role" class="form-select" onchange="this.form.submit()">
+            {% for item in roles %}
+              <option value="{{ item }}" {% if item == role %}selected{% endif %}>{{ item|upper }}</option>
+            {% endfor %}
+          </select>
+        </form>
+
+        <form method="post">
+          <input type="hidden" name="role" value="{{ role }}">
+          <div class="row g-3">
+            {% if role == 'student' %}
+              <div class="col-md-6"><input class="form-control" name="enrollment_no" placeholder="Enrollment No" required></div>
+              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Branch" required></div>
+              <div class="col-md-6"><input class="form-control" name="sem" placeholder="Semester" type="number" min="1" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+            {% elif role == 'faculty' %}
+              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="number_of_subjects" placeholder="Number of Subjects" type="number" min="1" required></div>
+              <div class="col-md-6"><input class="form-control" name="subject_name" placeholder="Primary Subject Name"></div>
+              <div class="col-md-6"><input class="form-control" name="subject_number" placeholder="Primary Subject Number"></div>
+              <div class="col-md-6"><input class="form-control" name="sem" placeholder="Semester" type="number" min="1"></div>
+              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Primary Branch"></div>
+              <div class="col-md-12"><input class="form-control" name="branches" placeholder="Multiple Branch Access (comma separated)"></div>
+              <div class="col-md-12">
+                <textarea class="form-control" name="subjects" rows="3" placeholder="Subjects format: SUBJECT_NO|Subject Name|Sem|Branch (one per line)"></textarea>
+              </div>
+              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+            {% elif role == 'hod' %}
+              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Branch" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+            {% elif role == 'principal' %}
+              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+            {% elif role == 'admin' %}
+              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+            {% endif %}
+            <div class="col-md-12"><input class="form-control" name="password" type="password" placeholder="Password" required></div>
+            <div class="col-12"><button class="btn btn-primary w-100">Create Account</button></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Faculty Dashboard{% endblock %}
+{% block content %}
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <h5>Faculty Mark Entry</h5>
+    <form method="get" class="row g-2">
+      <div class="col-md-3">
+        <label class="form-label">Branch</label>
+        <select class="form-select" name="branch">
+          {% for branch in branches %}<option value="{{ branch }}" {% if branch == selected_branch %}selected{% endif %}>{{ branch }}</option>{% endfor %}
+        </select>
+      </div>
+      <div class="col-md-2"><label class="form-label">Sem</label><input class="form-control" type="number" min="1" name="sem" value="{{ selected_sem }}"></div>
+      <div class="col-md-4">
+        <label class="form-label">Subject</label>
+        <select class="form-select" name="subject">
+          {% for subject in subjects %}
+            <option value="{{ subject.subject_number }}" {% if subject.subject_number == selected_subject %}selected{% endif %}>{{ subject.subject_number }} - {{ subject.subject_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3 d-grid align-self-end"><button class="btn btn-primary">Load Students</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle">
+        <thead><tr><th>Enrollment</th><th>Name</th><th>PA1</th><th>PA2</th><th>Practical</th><th>GTU</th><th>Action</th></tr></thead>
+        <tbody>
+          {% for row in rows %}
+          <tr>
+            <form method="post">
+              <input type="hidden" name="branch" value="{{ selected_branch }}">
+              <input type="hidden" name="sem" value="{{ selected_sem }}">
+              <input type="hidden" name="subject" value="{{ selected_subject }}">
+              <input type="hidden" name="student_user_id" value="{{ row.user_id }}">
+              <td>{{ row.enrollment_no }}</td>
+              <td>{{ row.first_name }} {{ row.last_name }}</td>
+              <td><input class="form-control" type="number" min="0" max="25" name="pa1" value="{{ row.pa1 }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="pa2" value="{{ row.pa2 }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="practical" value="{{ row.practical }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="gtu" value="{{ row.gtu }}"></td>
+              <td><button class="btn btn-sm btn-success">Save</button></td>
+            </form>
+          </tr>
+          {% else %}
+          <tr><td colspan="7" class="text-center">No students found for selected filters.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

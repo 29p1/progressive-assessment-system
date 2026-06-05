@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Principal Dashboard{% endblock %}
+{% block content %}
+<div class="card shadow-sm mb-3">
+  <div class="card-body">
+    <h5>All Branch Progress</h5>
+    <form method="get" class="row g-2">
+      <div class="col-md-3"><input class="form-control" type="number" min="1" name="sem" value="{{ sem }}" placeholder="Semester"></div>
+      <div class="col-md-2 d-grid"><button class="btn btn-primary">Load</button></div>
+    </form>
+  </div>
+</div>
+<div class="card shadow-sm mb-3"><div class="card-body"><canvas id="principalChart" height="100"></canvas></div></div>
+<div class="card shadow-sm"><div class="card-body">
+  <table class="table table-striped">
+    <thead><tr><th>Branch</th><th>Average %</th></tr></thead>
+    <tbody>
+      {% for item in chart %}
+      <tr><td>{{ item.branch }}</td><td>{{ item.average_percentage }}</td></tr>
+      {% else %}
+      <tr><td colspan="2" class="text-center">No data available.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div></div>
+{% endblock %}
+{% block scripts %}
+<script>
+  new Chart(document.getElementById('principalChart'), {
+    type: 'bar',
+    data: {
+      labels: {{ chart_labels|safe }},
+      datasets: [{ label: 'Average Percentage', data: {{ chart_values|safe }}, backgroundColor: '#6610f2' }]
+    }
+  });
+</script>
+{% endblock %}
