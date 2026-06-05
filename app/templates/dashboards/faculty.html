@@ -40,10 +40,10 @@
               <input type="hidden" name="student_user_id" value="{{ row.user_id }}">
               <td>{{ row.enrollment_no }}</td>
               <td>{{ row.first_name }} {{ row.last_name }}</td>
-              <td><input class="form-control" type="number" min="0" max="25" name="pa1" value="{{ row.pa1 }}"></td>
-              <td><input class="form-control" type="number" min="0" max="25" name="pa2" value="{{ row.pa2 }}"></td>
-              <td><input class="form-control" type="number" min="0" max="25" name="practical" value="{{ row.practical }}"></td>
-              <td><input class="form-control" type="number" min="0" max="25" name="gtu" value="{{ row.gtu }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="pa1" aria-label="PA1 marks for {{ row.enrollment_no }}" value="{{ row.pa1 }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="pa2" aria-label="PA2 marks for {{ row.enrollment_no }}" value="{{ row.pa2 }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="practical" aria-label="Practical marks for {{ row.enrollment_no }}" value="{{ row.practical }}"></td>
+              <td><input class="form-control" type="number" min="0" max="25" name="gtu" aria-label="GTU marks for {{ row.enrollment_no }}" value="{{ row.gtu }}"></td>
               <td><button class="btn btn-sm btn-success">Save</button></td>
             </form>
           </tr>

@@ -19,44 +19,44 @@
           <input type="hidden" name="role" value="{{ role }}">
           <div class="row g-3">
             {% if role == 'student' %}
-              <div class="col-md-6"><input class="form-control" name="enrollment_no" placeholder="Enrollment No" required></div>
-              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
-              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Branch" required></div>
-              <div class="col-md-6"><input class="form-control" name="sem" placeholder="Semester" type="number" min="1" required></div>
-              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
-              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="enrollment_no" aria-label="Enrollment No" placeholder="Enrollment No" required></div>
+              <div class="col-md-6"><input class="form-control" name="email" aria-label="Email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="branch" aria-label="Branch" placeholder="Branch" required></div>
+              <div class="col-md-6"><input class="form-control" name="sem" aria-label="Semester" placeholder="Semester" type="number" min="1" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" aria-label="First Name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" aria-label="Last Name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" aria-label="College Name" placeholder="College Name" required></div>
             {% elif role == 'faculty' %}
-              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
-              <div class="col-md-6"><input class="form-control" name="number_of_subjects" placeholder="Number of Subjects" type="number" min="1" required></div>
-              <div class="col-md-6"><input class="form-control" name="subject_name" placeholder="Primary Subject Name"></div>
-              <div class="col-md-6"><input class="form-control" name="subject_number" placeholder="Primary Subject Number"></div>
-              <div class="col-md-6"><input class="form-control" name="sem" placeholder="Semester" type="number" min="1"></div>
-              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Primary Branch"></div>
-              <div class="col-md-12"><input class="form-control" name="branches" placeholder="Multiple Branch Access (comma separated)"></div>
+              <div class="col-md-6"><input class="form-control" name="email" aria-label="Email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="number_of_subjects" aria-label="Number of Subjects" placeholder="Number of Subjects" type="number" min="1" required></div>
+              <div class="col-md-6"><input class="form-control" name="subject_name" aria-label="Primary Subject Name" placeholder="Primary Subject Name"></div>
+              <div class="col-md-6"><input class="form-control" name="subject_number" aria-label="Primary Subject Number" placeholder="Primary Subject Number"></div>
+              <div class="col-md-6"><input class="form-control" name="sem" aria-label="Semester" placeholder="Semester" type="number" min="1"></div>
+              <div class="col-md-6"><input class="form-control" name="branch" aria-label="Primary Branch" placeholder="Primary Branch"></div>
+              <div class="col-md-12"><input class="form-control" name="branches" aria-label="Multiple Branch Access" placeholder="Multiple Branch Access (comma separated)"></div>
               <div class="col-md-12">
-                <textarea class="form-control" name="subjects" rows="3" placeholder="Subjects format: SUBJECT_NO|Subject Name|Sem|Branch (one per line)"></textarea>
+                <textarea class="form-control" name="subjects" aria-label="Subjects" rows="3" placeholder="Subjects format: SUBJECT_NO|Subject Name|Sem|Branch (one per line), e.g. CS101|Intro to CS|1|CSE"></textarea>
               </div>
-              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
-              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" aria-label="First Name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" aria-label="Last Name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" aria-label="College Name" placeholder="College Name" required></div>
             {% elif role == 'hod' %}
-              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
-              <div class="col-md-6"><input class="form-control" name="branch" placeholder="Branch" required></div>
-              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
-              <div class="col-md-12"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="email" aria-label="Email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="branch" aria-label="Branch" placeholder="Branch" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" aria-label="First Name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" aria-label="Last Name" placeholder="Last Name" required></div>
+              <div class="col-md-12"><input class="form-control" name="college_name" aria-label="College Name" placeholder="College Name" required></div>
             {% elif role == 'principal' %}
-              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
-              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="college_name" placeholder="College Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="email" aria-label="Email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" aria-label="First Name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" aria-label="Last Name" placeholder="Last Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="college_name" aria-label="College Name" placeholder="College Name" required></div>
             {% elif role == 'admin' %}
-              <div class="col-md-6"><input class="form-control" name="email" placeholder="Email" type="email" required></div>
-              <div class="col-md-6"><input class="form-control" name="first_name" placeholder="First Name" required></div>
-              <div class="col-md-6"><input class="form-control" name="last_name" placeholder="Last Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="email" aria-label="Email" placeholder="Email" type="email" required></div>
+              <div class="col-md-6"><input class="form-control" name="first_name" aria-label="First Name" placeholder="First Name" required></div>
+              <div class="col-md-6"><input class="form-control" name="last_name" aria-label="Last Name" placeholder="Last Name" required></div>
             {% endif %}
-            <div class="col-md-12"><input class="form-control" name="password" type="password" placeholder="Password" required></div>
+            <div class="col-md-12"><input class="form-control" name="password" aria-label="Password" type="password" placeholder="Password" required></div>
             <div class="col-12"><button class="btn btn-primary w-100">Create Account</button></div>
           </div>
         </form>
