@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="row g-3 mb-3">
+  <div class="col-lg-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5>Add / Update Subject</h5>
+        <form method="post" class="row g-2">
+          <input type="hidden" name="action" value="add_subject">
+          <div class="col-md-6"><input class="form-control" name="subject_number" aria-label="Subject Number" placeholder="Subject Number" required></div>
+          <div class="col-md-6"><input class="form-control" name="subject_name" aria-label="Subject Name" placeholder="Subject Name" required></div>
+          <div class="col-md-6"><input class="form-control" name="branch" aria-label="Branch" placeholder="Branch" required></div>
+          <div class="col-md-6"><input class="form-control" name="sem" aria-label="Semester" type="number" min="1" placeholder="Semester" required></div>
+          <div class="col-12"><button class="btn btn-primary">Save Subject</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <h5>Set Faculty Branch Access</h5>
+        <form method="post" class="row g-2">
+          <input type="hidden" name="action" value="set_access">
+          <div class="col-12">
+            <select name="faculty_user_id" aria-label="Faculty User" class="form-select" required>
+              <option value="">Select Faculty</option>
+              {% for faculty in faculty_users %}
+              <option value="{{ faculty.id }}">{{ faculty.first_name }} {{ faculty.last_name }} ({{ faculty.email }})</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-12"><input class="form-control" name="branches" aria-label="Allowed Branches" placeholder="CSE,IT,MECH" required></div>
+          <div class="col-12"><button class="btn btn-success">Update Access</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card shadow-sm"><div class="card-body"><h5>Users</h5>
+      <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>Name</th><th>Role</th><th>Email/Login</th></tr></thead><tbody>
+        {% for user in users %}
+        <tr><td>{{ user.first_name }} {{ user.last_name }}</td><td>{{ user.role|upper }}</td><td>{{ user.email or user.login_id }}</td></tr>
+        {% else %}
+        <tr><td colspan="3" class="text-center">No users yet.</td></tr>
+        {% endfor %}
+      </tbody></table></div>
+    </div></div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card shadow-sm"><div class="card-body"><h5>Subjects</h5>
+      <div class="table-responsive"><table class="table table-sm table-striped"><thead><tr><th>No.</th><th>Name</th><th>Branch</th><th>Sem</th></tr></thead><tbody>
+        {% for subject in subjects %}
+        <tr><td>{{ subject.subject_number }}</td><td>{{ subject.subject_name }}</td><td>{{ subject.branch }}</td><td>{{ subject.sem }}</td></tr>
+        {% else %}
+        <tr><td colspan="4" class="text-center">No subjects yet.</td></tr>
+        {% endfor %}
+      </tbody></table></div>
+    </div></div>
+  </div>
+</div>
+{% endblock %}
